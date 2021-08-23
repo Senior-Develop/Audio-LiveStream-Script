@@ -1,0 +1,23 @@
+image:
+- Visual Studio 2017
+- Ubuntu1804
+
+stack: python 3
+
+environment:
+  PY_DIR: C:\Python37-x64
+
+clone_depth: 25
+
+build: off
+
+init:
+- cmd: set PATH=%PY_DIR%;%PY_DIR%\Scripts;%PATH%
+- cmd: cinst -y ffmpeg
+
+- sh: sudo apt-get -yq update > /dev/null
+- sh: sudo apt-get install -yq --no-install-suggests --no-install-recommends ffmpeg > /dev/null
+
+install: pip install -e .[tests]
+
+test_script: pytest -r a -v
